@@ -14,5 +14,5 @@ public class Product {
     public String toString() {
         return getId() + "\t" + getName() + "\t" + getPrice();
     }
-
+    public String getId(){return this.id;}
 }

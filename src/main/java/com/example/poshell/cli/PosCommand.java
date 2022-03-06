@@ -30,6 +30,16 @@ public class PosCommand {
     public String newCart() {
         return posService.newCart() + " OK";
     }
+    @ShellMethod(value = "Empty your Cart", key = "e")
+    public String emptyCart(){
+        posService.emptyCart();
+        return "Cart clear";
+    }
+    @ShellMethod(value = "show total price", key = "t")
+    public String totalPrice(){
+        double total = posService.getCart().total();
+        return "Total...\t\t\t" + total;
+    }
 
     @ShellMethod(value = "Add a Product to Cart", key = "a")
     public String addToCart(String productId, int amount) {
@@ -37,5 +47,28 @@ public class PosCommand {
             return posService.getCart().toString();
         }
         return "ERROR";
+    }
+    @ShellMethod(value = "Check out the Cart", key = "c")
+    public String checkoutCart(){
+        if(posService.getCart() == null)
+        {
+            return "There is no Cart!";
+        }
+        else{
+            return posService.getCart().toString();
+        }
+    }
+    @ShellMethod(value = "Modify the amount of the specific product in your Cart", key = "m")
+    public String modifyCart(String productId, int amount) {
+        if(posService.getCart() == null){
+            return "There is no Cart!";
+        }
+        if (amount <= 0) {
+            return "Failed! The amount must be greater than 0.";
+        }
+        if (posService.modify(productId, amount)) {
+            return posService.getCart().toString();
+        }
+        return "Modify failed.Product \"" + productId + "\" could not be found.";
     }
 }

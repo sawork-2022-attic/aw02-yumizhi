@@ -13,4 +13,9 @@ public class Item {
     public String toString(){
         return product.toString() +"\t" + amount;
     }
+    public void modifyAmount(int newAmount){
+        if(newAmount > 0){
+            amount = newAmount;
+        }
+    }
 }
